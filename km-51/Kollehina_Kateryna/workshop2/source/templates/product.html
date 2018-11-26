@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>product</title>
+</head>
+<body>
+
+
+    <form action = "/api" method = "POST" id="form_product">
+        <p>Name <input type = "text" name = "product_name" value="{{product.get('product_name')}}" /></p>
+
+     </form>
+
+    <button type="submit" form="form_product" name="action" value="product_update">Submit</button>
+
+
+</body>
+</html>
