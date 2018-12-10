@@ -232,16 +232,16 @@ ALTER TABLE Userr
   CHECK (REGEXP_LIKE(user_name,'[A-Z][a-z]{1,19}','c'));
 ALTER TABLE Userr
   ADD CONSTRAINT check_email
-  CHECK ( REGEXP_LIKE (user_email, '[a-z0-9_-]+\.)*[a-z0-9_-]+@[a-z0-9_-]+(\.[a-z0-9_-]+)*\.[a-z]{2,6}$'));
+  CHECK ( REGEXP_LIKE (user_email, '[A-Za-z0-9._]+@[A-Za-z0-9._]+\.[a-z]{2,4}'));
 ALTER TABLE Recipe
   ADD CONSTRAINT check_recipe_name 
-  CHECK (REGEXP_LIKE(recipe_name,'[A-Z][a-z]{1,19}','c'));
+  CHECK (REGEXP_LIKE(recipe_name,'[A-Z]{0,1}[a-z]{1,19}','c'));
 ALTER TABLE Product
   ADD CONSTRAINT check_product_name 
-  CHECK (REGEXP_LIKE(product_name,'[A-Z][a-z]{1,19}','c'));
+  CHECK (REGEXP_LIKE(product_name,'[A-Z]{0,1}[a-z]{1,19}','c'));
 ALTER TABLE Taste
   ADD CONSTRAINT check_taste_name 
-  CHECK (REGEXP_LIKE(taste_name,'[A-Z][a-z]{1,19}','c'));
+  CHECK (REGEXP_LIKE(taste_name,'[A-Z]{0,1}[a-z]{1,19}','c'));
 ALTER TABLE Level_of_taste
   ADD CONSTRAINT check_level_of_taste 
   CHECK (REGEXP_LIKE(level_of_taste,'^0+(\.[0-9]{1,2})?$'));
