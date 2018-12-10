@@ -4,16 +4,17 @@
 /*==============================================================*/
 
 
+
 alter table Level_of_taste
    drop constraint FK_LEVEL_OF_FK_RECIPE_RECIPE;
 
 alter table Level_of_taste
    drop constraint FK_LEVEL_OF_FK_TASTE__TASTE;
 
-alter table Like
+alter table Likes
    drop constraint FK_LIKE_FK_FAVOUR_TASTE;
 
-alter table Like
+alter table Likes
    drop constraint FK_LIKE_FK_FAVOUR_USER;
 
 alter table Recipe
@@ -30,7 +31,7 @@ alter table Wishlist
 
 drop index taste_has_recipe_FK;
 
-drop index recipe_ has_taste_FK;
+drop index recipe_has_taste_FK;
 
 drop table Level_of_taste cascade constraints;
 
@@ -38,7 +39,7 @@ drop index favourite_tastes_FK;
 
 drop index favourite_tastes2_FK;
 
-drop table Like cascade constraints;
+drop table Likes cascade constraints;
 
 drop table Product cascade constraints;
 
@@ -50,17 +51,17 @@ drop table Recipe cascade constraints;
 
 drop table Taste cascade constraints;
 
-drop table User cascade constraints;
+drop table Userr cascade constraints;
 
 drop index wishlist_FK;
 
 drop index wishlist2_FK;
 
 drop table Wishlist cascade constraints;
-
 /*==============================================================*/
 /* Table: Level_of_taste                                        */
 /*==============================================================*/
+
 create table Level_of_taste 
 (
    taste_name           VARCHAR2(20)         not null,
@@ -72,7 +73,7 @@ create table Level_of_taste
 /*==============================================================*/
 /* Index: recipe_ has_taste_FK                                */
 /*==============================================================*/
-create index recipe_ has_taste_FK on Level_of_taste (
+create index recipe_has_taste_FK on Level_of_taste (
    recipe_id ASC
 );
 
@@ -86,7 +87,7 @@ create index taste_has_recipe_FK on Level_of_taste (
 /*==============================================================*/
 /* Table: Like                                                */
 /*==============================================================*/
-create table Like 
+create table Likes 
 (
    taste_name           VARCHAR2(20)         not null,
    user_email           VARCHAR2(40)         not null,
@@ -96,14 +97,14 @@ create table Like
 /*==============================================================*/
 /* Index: favourite_tastes2_FK                                  */
 /*==============================================================*/
-create index favourite_tastes2_FK on Like (
+create index favourite_tastes2_FK on Likes (
    user_email ASC
 );
 
 /*==============================================================*/
 /* Index: favourite_tastes_FK                                   */
 /*==============================================================*/
-create index favourite_tastes_FK on Like (
+create index favourite_tastes_FK on Likes (
    taste_name ASC
 );
 
@@ -155,7 +156,7 @@ create table Taste
 /*==============================================================*/
 /* Table: User                                                */
 /*==============================================================*/
-create table User 
+create table Userr 
 (
    user_name            VARCHAR2(20)         not null,
    user_email           VARCHAR2(40)         not null,
@@ -194,17 +195,17 @@ alter table Level_of_taste
    add constraint FK_LEVEL_OF_FK_TASTE__TASTE foreign key (taste_name)
       references Taste (taste_name);
 
-alter table Like
+alter table Likes
    add constraint FK_LIKE_FK_FAVOUR_TASTE foreign key (taste_name)
       references Taste (taste_name);
 
-alter table Like
+alter table Likes
    add constraint FK_LIKE_FK_FAVOUR_USER foreign key (user_email)
-      references User (user_email);
+      references Userr (user_email);
 
 alter table Recipe
    add constraint FK_RECIPE_FK_AUTHOR_USER foreign key (user_email)
-      references User (user_email);
+      references Userr (user_email);
 
 alter table Recipe
    add constraint FK_RECIPE_FK_RECIPE_PRODUCT foreign key (product_name)
@@ -216,30 +217,30 @@ alter table Wishlist
 
 alter table Wishlist
    add constraint FK_WISHLIST_FK_WISHLI_USER foreign key (user_email)
-      references User (user_email);
+      references Userr (user_email);
 
 
-ALTER TABLE User
+ALTER TABLE Userr
   ADD CONSTRAINT email_unique UNIQUE (user_email);
 ALTER TABLE Taste
   ADD CONSTRAINT taste_unique UNIQUE (taste_name);
 ALTER TABLE Product
   ADD CONSTRAINT product_unique UNIQUE (product_name);
 
-ALTER TABLE User
+ALTER TABLE Userr
   ADD CONSTRAINT check_name 
   CHECK (REGEXP_LIKE(user_name,'[A-Z][a-z]{1,19}','c'));
-ALTER TABLE User
+ALTER TABLE Userr
   ADD CONSTRAINT check_email
   CHECK ( REGEXP_LIKE (user_email, '[a-z0-9_-]+\.)*[a-z0-9_-]+@[a-z0-9_-]+(\.[a-z0-9_-]+)*\.[a-z]{2,6}$'));
 ALTER TABLE Recipe
-  ADD CONSTRAINT check_name 
+  ADD CONSTRAINT check_recipe_name 
   CHECK (REGEXP_LIKE(recipe_name,'[A-Z][a-z]{1,19}','c'));
 ALTER TABLE Product
-  ADD CONSTRAINT check_name 
+  ADD CONSTRAINT check_product_name 
   CHECK (REGEXP_LIKE(product_name,'[A-Z][a-z]{1,19}','c'));
 ALTER TABLE Taste
-  ADD CONSTRAINT check_name 
+  ADD CONSTRAINT check_taste_name 
   CHECK (REGEXP_LIKE(taste_name,'[A-Z][a-z]{1,19}','c'));
 ALTER TABLE Level_of_taste
   ADD CONSTRAINT check_level_of_taste 
