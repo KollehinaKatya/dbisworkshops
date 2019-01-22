@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Registrate</title>
+    <style>
+   h2 {
+    font-family: 'Century Gothic', Century, serif;
+   }
+    form {
+    font-family: 'Century Gothic', Century, serif;
+    margin-left: 30pt;
+    font-size: 15pt;
+   }
+  </style>
+</head>
+<body>
+<h2 style = "text-align: center;">Registrate</h2>
+<form action="http://127.0.0.1:8080/registrate" method="POST">
+    {{ myForm.hidden_tag() }}
+    <br>
+    {{ myForm.username.label }} {{ myForm.username }}
+    {% for message in myForm.username.errors %}
+                         <div>{{ message }}</div>
+                      {% endfor %}
+    <br>
+    {{ myForm.email.label }} {{ myForm.email }}
+    {% for message in myForm.email.errors %}
+                         <div>{{ message }}</div>
+                      {% endfor %}
+    <br>
+    <br>
+    {{ myForm.submit }}
+
+    <a href="/signin">Login</a>
+</form>
+
+
+</body>
+</html>
